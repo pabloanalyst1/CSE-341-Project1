@@ -1,16 +1,10 @@
 const dotenv = require('dotenv');
 dotenv.config();
 const { MongoClient } = require('mongodb');
-console.log('🧪 URI:', process.env.MONGODB_URI); //comprobar que obtenga el url
 
+console.log('🧪 URI:', process.env.MONGODB_URI);
 
-const uri = process.env.MONGODB_URI;
-const client = new MongoClient(uri, {
-  useNewUrlParser: true,
-  useUnifiedTopology: true,
-  tls: true,
-  tlsAllowInvalidCertificates: true
-});
+const client = new MongoClient(process.env.MONGODB_URI);
 
 let db;
 
