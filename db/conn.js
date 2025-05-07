@@ -5,7 +5,12 @@ console.log('🧪 URI:', process.env.MONGODB_URI); //comprobar que obtenga el ur
 
 
 const uri = process.env.MONGODB_URI;
-const client = new MongoClient(uri);
+const client = new MongoClient(uri, {
+  useNewUrlParser: true,
+  useUnifiedTopology: true,
+  tls: true,
+  tlsAllowInvalidCertificates: true
+});
 
 let db;
 
