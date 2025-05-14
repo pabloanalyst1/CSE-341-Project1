@@ -29,4 +29,32 @@ router.post('/', async (req, res) => {
   }
 });
 
+// Update contact by ID (PUT)
+router.put('/:id', async (req, res) => {
+  const db = getDb();
+  const contactId = req.params.id;
+
+  try {
+    const result = await db.collection('contacts').updateOne(
+      { _id: contactId },
+      { $set: {
+          firstName: req.body.firstName,
+          lastName: req.body.lastName,
+          email: req.body.email,
+          favoriteColor: req.body.favoriteColor,
+          birthday: req.body.birthday
+      }}
+    );
+
+    if (result.matchedCount === 0) {
+      return res.status(404).json({ message: 'Contact not found' });
+    }
+
+    res.status(200).json({ message: 'Contact updated successfully' });
+  } catch (err) {
+    console.error('Error updating contact:', err);
+    res.status(500).json({ error: 'Failed to update contact' });
+  }
+});
+
 module.exports = router;
