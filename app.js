@@ -5,6 +5,9 @@ const { connectToDB } = require('./db/conn');
 
 app.use(express.json());
 
+const setupSwagger = require('./utils/swagger');
+setupSwagger(app);
+
 const contactsRoutes = require('./routes/contacts');
 
 app.use('/contacts', contactsRoutes);
