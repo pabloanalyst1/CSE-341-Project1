@@ -57,4 +57,23 @@ router.put('/:id', async (req, res) => {
   }
 });
 
+// Remove contact by ID (Borrar - DELETE)
+router.delete('/:id', async (req, res) => {
+  const db = getDb();
+  const contactId = req.params.id;
+
+  try {
+    const result = await db.collection('contacts').deleteOne({ _id: contactId });
+
+    if (result.deletedCount === 0) {
+      return res.status(404).json({ message: 'Contact not found' });
+    }
+
+    res.status(200).json({ message: 'Contact deleted successfully' });
+  } catch (err) {
+    console.error('Error deleting contact:', err);
+    res.status(500).json({ error: 'Failed to delete contact' });
+  }
+});
+
 module.exports = router;
