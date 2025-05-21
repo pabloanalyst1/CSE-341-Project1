@@ -18,7 +18,7 @@ const options = {
       }
     ]
   },
-  apis: ['./routes/*.js'] // ubicación de tus endpoints
+  apis: ['./routes/*.js'] // ubicación de LOS endpoints
 };
 
 const swaggerSpec = swaggerJSDoc(options);

@@ -8,9 +8,15 @@ app.use(express.json());
 const setupSwagger = require('./utils/swagger');
 setupSwagger(app);
 
+// Routes
+// Contacts routes
 const contactsRoutes = require('./routes/contacts');
-
 app.use('/contacts', contactsRoutes);
+
+// Products routes
+const productsRoutes = require('./routes/products');
+app.use('/products', productsRoutes);
+
 
 app.get('/', (req, res) => {
   res.send('Hello World from CSE 341!');
