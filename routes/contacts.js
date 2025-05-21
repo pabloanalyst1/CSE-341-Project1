@@ -1,7 +1,51 @@
+// routes/contacts.js
 const express = require('express');
 const router = express.Router();
 const { MongoClient } = require('mongodb');
 const { getDb } = require('../db/conn');
+
+/**
+ * @swagger
+ * components:
+ *   schemas:
+ *     Contact:
+ *       type: object
+ *       required:
+ *         - firstName
+ *         - lastName
+ *         - email
+ *         - favoriteColor
+ *         - birthday
+ *       properties:
+ *         _id:
+ *           type: string
+ *           description: MongoDB ObjectId
+ *         firstName:
+ *           type: string
+ *         lastName:
+ *           type: string
+ *         email:
+ *           type: string
+ *         favoriteColor:
+ *           type: string
+ *         birthday:
+ *           type: string
+ *           format: date
+ *       example:
+ *         _id: 60d0fe4f5311236168a109ca
+ *         firstName: Alice
+ *         lastName: Johnson
+ *         email: alice.johnson@example.com
+ *         favoriteColor: purple
+ *         birthday: 1992-07-20
+ */
+
+/**
+ * @swagger
+ * tags:
+ *   name: Contacts
+ *   description: Contact management
+ */
 
 /**
  * @swagger
@@ -17,7 +61,7 @@ const { getDb } = require('../db/conn');
  *             schema:
  *               type: array
  *               items:
- *                 type: object
+ *                 $ref: '#/components/schemas/Contact'
  */
 router.get('/', async (req, res) => {
   const db = getDb();
@@ -41,6 +85,10 @@ router.get('/', async (req, res) => {
  *     responses:
  *       200:
  *         description: Contact found
+ *         content:
+ *           application/json:
+ *             schema:
+ *               $ref: '#/components/schemas/Contact'
  *       404:
  *         description: Contact not found
  */
@@ -61,18 +109,7 @@ router.get('/:id', async (req, res) => {
  *       content:
  *         application/json:
  *           schema:
- *             type: object
- *             properties:
- *               firstName:
- *                 type: string
- *               lastName:
- *                 type: string
- *               email:
- *                 type: string
- *               favoriteColor:
- *                 type: string
- *               birthday:
- *                 type: string
+ *             $ref: '#/components/schemas/Contact'
  *     responses:
  *       201:
  *         description: Contact created successfully
@@ -108,18 +145,7 @@ router.post('/', async (req, res) => {
  *       content:
  *         application/json:
  *           schema:
- *             type: object
- *             properties:
- *               firstName:
- *                 type: string
- *               lastName:
- *                 type: string
- *               email:
- *                 type: string
- *               favoriteColor:
- *                 type: string
- *               birthday:
- *                 type: string
+ *             $ref: '#/components/schemas/Contact'
  *     responses:
  *       200:
  *         description: Contact updated successfully
